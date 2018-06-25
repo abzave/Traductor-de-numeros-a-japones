@@ -66,7 +66,7 @@ codigo segment
          mov bl, cl ; Si el formato está bien guarda el largo del formato en el bl (porque no se le da otro uso al bl)
 
          ;Guarda la entrada
- guarda: xor di, di
+ 		 xor di, di
  ciclo:  inc si
          mov al, BYTE PTR es:[si]
          mov BYTE PTR comando[di], al
@@ -91,39 +91,37 @@ codigo segment
  help:	 mov ah,09h
          lea dx, ayuda
          int 21h
-	     jmp final
+	     call salir
 
          ; Muestra el error de comando no reconocido
 opInv:   mov ah,09h
          lea dx, opcError
          int 21h
-         jmp final
+         call salir
 
          ; Muestra el error de no hay argumentos
 noArg:   mov ah,09h
          lea dx, noArgumentos
          int 21h
-         jmp final
+         call salir
 
          ; Muestra el error de que el argumento es demasiado largo
 largo:   mov ah,09h
          lea dx, tooLargo
          int 21h
-         jmp final
+         call salir
 
          ; Muestra el error de que todo salió bien
 exitoso: mov ah,09h
          lea dx, exito
          int 21h
-         jmp final
+         call salir
 
          ; Muestra el error de que no es un número
 noNum:	 mov ah,09h
          lea dx, noEsNumero
          int 21h
-         jmp final
-
-salto: 	 jmp final   ; Salto de conejo
+salto:   call salir
 
 japoUM: cmp BYTE PTR comando[di], 00h    ;Verifica que haya números
          jz noArg                         ;Si no, marca el error
@@ -166,73 +164,57 @@ japo1000:mov ah,09h
          inc di
          jmp japoC
 
-         ; Muestra el 20 en japonés
-japo2000:mov ah,09h
-         lea dx, japones2
-         int 21h
+         ; Muestra el 2000 en japonés
+japo2000:call mostrar2
          lea dx, japones1000
          int 21h
          inc di
          jmp japoC
 
-         ; Muestra el 30 en japonés
-japo3000:mov ah,09h
-         lea dx, japones3
-         int 21h
+         ; Muestra el 3000 en japonés
+japo3000:call mostrar3
          lea dx, japones1000
          int 21h
          inc di
          jmp japoC
 
-         ; Muestra el 40 en japonés
-japo4000: mov ah,09h
-          lea dx, japones4
-          int 21h
+         ; Muestra el 4000 en japonés
+japo4000: call mostrar4
           lea dx, japones1000
           int 21h
           inc di
           jmp japoC
 
-         ; Muestra el 50 en japonés
-japo5000:mov ah,09h
-         lea dx, japones5
-         int 21h
+         ; Muestra el 5000 en japonés
+japo5000:call mostrar5
          lea dx, japones1000
          int 21h
          inc di
          jmp japoC
 
-         ; Muestra el 60 en japonés
-japo6000:mov ah,09h
-         lea dx, japones6
-         int 21h
+         ; Muestra el 6000 en japonés
+japo6000:call mostrar6
          lea dx, japones1000
          int 21h
          inc di
          jmp japoC
 
-         ; Muestra el 70 en japonés
-japo7000:mov ah,09h
-         lea dx, japones7
-         int 21h
+         ; Muestra el 7000 en japonés
+japo7000:call mostrar7
          lea dx, japones1000
          int 21h
          inc di
          jmp japoC
 
-         ; Muestra el 80 en japonés
-japo8000:mov ah,09h
-         lea dx, japones8
-         int 21h
+         ; Muestra el 8000 en japonés
+japo8000:call mostrar8
          lea dx, japones1000
          int 21h
          inc di
          jmp japoC
 
-         ; Muestra el 90 en japonés
-japo9000:mov ah,09h
-         lea dx, japones9
-         int 21h
+         ; Muestra el 9000 en japonés
+japo9000:call mostrar9
          lea dx, japones1000
          int 21h
          inc di
@@ -283,72 +265,56 @@ japo100: mov ah,09h
          jmp japoD
 
          ; Muestra el 20 en japonés
- japo200: mov ah,09h
-         lea dx, japones2
-         int 21h
+ japo200:call mostrar2
          lea dx, japones100
          int 21h
          inc di
          jmp japoD
 
          ; Muestra el 30 en japonés
- japo300: mov ah,09h
-         lea dx, japones3
-         int 21h
+ japo300:call mostrar3
          lea dx, japones100
          int 21h
          inc di
          jmp japoD
 
          ; Muestra el 40 en japonés
- japo400: mov ah,09h
-          lea dx, japones4
-          int 21h
+ japo400: call mostrar4
           lea dx, japones100
           int 21h
           inc di
           jmp japoD
 
          ; Muestra el 50 en japonés
- japo500: mov ah,09h
-         lea dx, japones5
-         int 21h
+ japo500:call mostrar5
          lea dx, japones100
          int 21h
          inc di
          jmp japoD
 
          ; Muestra el 60 en japonés
- japo600: mov ah,09h
-         lea dx, japones6
-         int 21h
+ japo600:call mostrar6
          lea dx, japones100
          int 21h
          inc di
          jmp japoD
 
          ; Muestra el 70 en japonés
- japo700: mov ah,09h
-         lea dx, japones7
-         int 21h
+ japo700:call mostrar7
          lea dx, japones100
          int 21h
          inc di
          jmp japoD
 
          ; Muestra el 80 en japonés
- japo800: mov ah,09h
-         lea dx, japones8
-         int 21h
+ japo800:call mostrar8
          lea dx, japones100
          int 21h
          inc di
          jmp japoD
 
          ; Muestra el 90 en japonés
- japo900: mov ah,09h
-         lea dx, japones9
-         int 21h
+ japo900:call mostrar9
          lea dx, japones100
          int 21h
          inc di
@@ -394,71 +360,55 @@ japoD:   inc di 						  ;Incrementa el di
          jmp japo
 
          ; Muestra el 20 en japonés
- japo20: mov ah,09h
-         lea dx, japones2
-         int 21h
+ japo20: call mostrar2
          lea dx, japones10
          int 21h
          inc di
          jmp japo
 
          ; Muestra el 30 en japonés
- japo30: mov ah,09h
-         lea dx, japones3
-         int 21h
+ japo30: call mostrar3
          lea dx, japones10
          int 21h
          inc di
          jmp japo
          ; Muestra el 40 en japonés
- japo40: mov ah,09h
-         lea dx, japones4
-         int 21h
+ japo40: call mostrar4
          lea dx, japones10
          int 21h
          inc di
          jmp japo
 
          ; Muestra el 50 en japonés
- japo50: mov ah,09h
-         lea dx, japones5
-         int 21h
+ japo50: call mostrar5
          lea dx, japones10
          int 21h
          inc di
          jmp japo
 
          ; Muestra el 60 en japonés
- japo60: mov ah,09h
-         lea dx, japones6
-         int 21h
+ japo60: call mostrar6
          lea dx, japones10
          int 21h
          inc di
          jmp japo
 
          ; Muestra el 70 en japonés
- japo70: mov ah,09h
-         lea dx, japones7
-         int 21h
+ japo70: call mostrar7
          lea dx, japones10
          int 21h
          inc di
          jmp japo
 
          ; Muestra el 80 en japonés
- japo80: mov ah,09h
-         lea dx, japones8
-         int 21h
+ japo80: call mostrar8
          lea dx, japones10
          int 21h
          inc di
          jmp japo
 
          ; Muestra el 90 en japonés
- japo90: mov ah,09h
-         lea dx, japones9
-         int 21h
+ japo90: call mostrar9
          lea dx, japones10
          int 21h
          inc di
@@ -509,54 +459,98 @@ japo:    cmp BYTE PTR comando[di], '0'    ;Verifica si entró un 0
          jmp exitoso
 
          ; Muestra el 2 en japonés
- japo2:  mov ah,09h
-         lea dx, japones2
-         int 21h
+ japo2:  call mostrar2
          jmp exitoso
 
          ; Muestra el 3 en japonés
- japo3:  mov ah,09h
-         lea dx, japones3
-         int 21h
+ japo3:  call mostrar3
          jmp exitoso
          ; Muestra el 4 en japonés
- japo4:  mov ah,09h
-         lea dx, japones4
-         int 21h
+ japo4:  call mostrar4
          jmp exitoso
 
          ; Muestra el 5 en japonés
- japo5:  mov ah,09h
-         lea dx, japones5
-         int 21h
+ japo5:  call mostrar5
          jmp exitoso
 
          ; Muestra el 6 en japonés
- japo6:  mov ah,09h
-         lea dx, japones6
-         int 21h
+ japo6:  call mostrar6
          jmp exitoso
 
          ; Muestra el 7 en japonés
- japo7:  mov ah,09h
-         lea dx, japones7
-         int 21h
+ japo7:  call mostrar7
          jmp exitoso
 
          ; Muestra el 8 en japonés
- japo8:  mov ah,09h
-         lea dx, japones8
-         int 21h
+ japo8:  call mostrar8
          jmp exitoso
 
          ; Muestra el 9 en japonés
- japo9:  mov ah,09h
-         lea dx, japones9
-         int 21h
+ japo9:  call mostrar9
          jmp exitoso
 
- final:	 mov ax, 4C00h    ; protocolo de finalización del programa.
-         int 21h
+; Rutinas
+ salir Proc
+ 	mov ax, 4C00h    ; protocolo de finalización del programa.
+    int 21h
+    ret
+ salir Endp
+
+ mostrar2 Proc
+	mov ah,09h
+    lea dx, japones2
+    int 21h
+ 	ret
+ mostrar2 Endp
+
+ mostrar3 Proc
+	mov ah,09h
+    lea dx, japones3
+    int 21h
+ 	ret
+ mostrar3 Endp
+
+ mostrar4 Proc
+	mov ah,09h
+    lea dx, japones4
+    int 21h
+ 	ret
+ mostrar4 Endp
+
+ mostrar5 Proc
+	mov ah,09h
+    lea dx, japones5
+    int 21h
+ 	ret
+ mostrar5 Endp
+
+ mostrar6 Proc
+	mov ah,09h
+    lea dx, japones6
+    int 21h
+ 	ret
+ mostrar6 Endp
+
+ mostrar7 Proc
+	mov ah,09h
+    lea dx, japones7
+    int 21h
+ 	ret
+ mostrar7 Endp
+
+ mostrar8 Proc
+	mov ah,09h
+    lea dx, japones8
+    int 21h
+ 	ret
+ mostrar8 Endp
+
+ mostrar9 Proc
+	mov ah,09h
+    lea dx, japones9
+    int 21h
+ 	ret
+ mostrar9 Endp
      
 codigo ends
 
